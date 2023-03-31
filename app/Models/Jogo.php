@@ -10,7 +10,7 @@ class Jogo extends Model
     use HasFactory;
 
     protected $table = 'jogos';
-    protected $primaryKey = 'jogos_id';
+    protected $primaryKey = 'id_jogos';
 
     protected $fillable = [
         'nome',
