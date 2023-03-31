@@ -17,7 +17,7 @@ class Jogo extends Model
         'descricao',
         'imagem_capa',
         'fabricante',
-        'console',
         'ano_lancamento',
+        'faturamento'
     ];
 }

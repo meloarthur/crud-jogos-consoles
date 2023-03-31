@@ -29,8 +29,8 @@ class JogoController extends Controller
                 'descricao' => $request->descricao,
                 'imagem_capa' => $request->imagem_capa,
                 'fabricante' => $request->fabricante,
-                'console' => $request->console,
-                'ano_lancamento' => $request->ano_lancamento
+                'ano_lancamento' => $request->ano_lancamento,
+                'faturamento' => $request->faturamento
             ]);
 
             return response()->json(['msg' => 'Jogo inserido com sucesso!'], 200);

@@ -12,15 +12,9 @@ class JogoConsoleController extends Controller
      */
     public function index()
     {
-        //
-    }
+        $dados = JogoConsole::all();
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
+        return response()->json($dados, 200);
     }
 
     /**
@@ -28,29 +22,41 @@ class JogoConsoleController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        try {
+
+            JogoConsole::create([
+                'id_jogos' => $request->id_jogos,
+                'id_consoles' => $request->id_consoles
+            ]);
+
+            return response()->json(['msg' => 'Relação inserida com sucesso!'], 200);
+
+        } catch (\Throwable $th) {
+
+            report($th);
+            return response()->json(['msg' => 'Erro ao inserir relação'], 400);
+
+        }
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(JogoConsole $jogoConsole)
+    public function show(Request $request)
     {
-        //
-    }
+        $dados = JogoConsole::find($request->id);
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(JogoConsole $jogoConsole)
-    {
-        //
+        if (!isset($dados)) {
+            return response()->json(['msg' => 'Relação não encontrada'], 404);
+        }
+
+        return response()->json($dados, 200);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, JogoConsole $jogoConsole)
+    public function update(Request $request)
     {
         //
     }
@@ -58,7 +64,7 @@ class JogoConsoleController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(JogoConsole $jogoConsole)
+    public function destroy(Request $request)
     {
         //
     }
