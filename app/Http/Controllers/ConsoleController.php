@@ -26,7 +26,7 @@ class ConsoleController extends Controller
 
             Console::create([
                 'nome' => $request->nome,
-                'fabricante' => $request->fabricante,
+                'fabricante' => $request->fabricante
             ]);
 
             return response()->json(['msg' => 'Console inserido com sucesso!'], 200);
@@ -56,16 +56,61 @@ class ConsoleController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Console $console)
+    public function update(Request $request)
     {
-        //
+        try {
+        
+            $console = Console::find($request->id);
+
+            if (!isset($console)) {
+                return response()->json(['erro' => 'Console solicitado não existe'], 404);
+            }
+
+            $console->update([
+                'nome' => $request->nome,
+                'fabricante' => $request->fabricante
+            ]);
+
+            return response()->json(['msg' => 'Console atualizado com sucesso!'], 200);
+
+        } catch (\Throwable $th) {
+
+            report($th);
+            return response()->json(['erro' => 'Erro ao atualizar console'], 400);
+
+        }
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Console $console)
+    public function destroy(Request $request)
     {
-        //
+        // $carro = $this->carro->find($id);
+
+        // if ($carro === null)
+        //     return response()->json(['erro' => 'Recurso solicitado não existe'], 404);
+
+        // $carro->delete();
+
+        // return response()->json(['msg' => 'Modelo removido com sucesso!'], 200);
+        try {
+        
+            $console = Console::find($request->id);
+
+            if (!isset($console)) {
+                return response()->json(['erro' => 'Console solicitado não existe'], 404);
+            }
+
+            $console->delete();
+
+            return response()->json(['msg' => 'Console excluido com sucesso!'], 200);
+
+        } catch (\Throwable $th) {
+
+            report($th);
+            return response()->json(['erro' => 'Erro ao excluir console'], 400);
+
+        }
     }
 }

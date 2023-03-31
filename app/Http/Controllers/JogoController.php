@@ -38,7 +38,7 @@ class JogoController extends Controller
         } catch (\Throwable $th) {
 
             report($th);
-            return response()->json(['msg' => 'Erro ao inserir jogo'], 400);
+            return response()->json(['erro' => 'Erro ao inserir jogo'], 400);
 
         }
     }
@@ -51,7 +51,7 @@ class JogoController extends Controller
         $dados = Jogo::find($request->id);
 
         if (!isset($dados)) {
-            return response()->json(['msg' => 'Jogo não encontrado'], 404);
+            return response()->json(['erro' => 'Jogo não encontrado'], 404);
         }
 
         return response()->json($dados, 200);
@@ -62,7 +62,31 @@ class JogoController extends Controller
      */
     public function update(Request $request)
     {
-        //
+        try {
+        
+            $jogo = Jogo::find($request->id);
+
+            if (!isset($jogo)) {
+                return response()->json(['erro' => 'Jogo solicitado não existe'], 404);
+            }
+
+            $jogo->update([
+                'nome' => $request->nome,
+                'descricao' => $request->descricao,
+                'imagem_capa' => $request->imagem_capa,
+                'fabricante' => $request->fabricante,
+                'ano_lancamento' => $request->ano_lancamento,
+                'faturamento' => $request->faturamento
+            ]);
+
+            return response()->json(['msg' => 'Jogo atualizado com sucesso!'], 200);
+
+        } catch (\Throwable $th) {
+
+            report($th);
+            return response()->json(['erro' => 'Erro ao atualizar jogo'], 400);
+
+        }
     }
 
     /**
@@ -70,6 +94,24 @@ class JogoController extends Controller
      */
     public function destroy(Request $request)
     {
-        //
+        try {
+        
+            $jogo = Jogo::find($request->id);
+
+            if (!isset($jogo)) {
+                return response()->json(['erro' => 'Jogo solicitado não existe'], 404);
+            }
+            dump('teste');
+            $jogo->delete();
+            dump('teste 2');
+
+            return response()->json(['msg' => 'Jogo excluido com sucesso!'], 200);
+
+        } catch (\Throwable $th) {
+
+            report($th);
+            return response()->json(['erro' => 'Erro ao excluir jogo'], 400);
+
+        }
     }
 }
