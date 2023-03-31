@@ -12,15 +12,9 @@ class JogoController extends Controller
      */
     public function index()
     {
-        //
-    }
+        $dados = Jogo::all();
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
+        return response()->json($dados, 200);
     }
 
     /**
@@ -28,29 +22,45 @@ class JogoController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        try {
+
+            Jogo::create([
+                'nome' => $request->nome,
+                'descricao' => $request->descricao,
+                'imagem_capa' => $request->imagem_capa,
+                'fabricante' => $request->fabricante,
+                'console' => $request->console,
+                'ano_lancamento' => $request->ano_lancamento
+            ]);
+
+            return response()->json(['msg' => 'Jogo inserido com sucesso!'], 200);
+
+        } catch (\Throwable $th) {
+
+            report($th);
+            return response()->json(['msg' => 'Erro ao inserir jogo'], 400);
+
+        }
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(Jogo $jogo)
+    public function show(Request $request)
     {
-        //
-    }
+        $dados = Jogo::find($request->id);
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Jogo $jogo)
-    {
-        //
+        if (!isset($dados)) {
+            return response()->json(['msg' => 'Jogo não encontrado'], 404);
+        }
+
+        return response()->json($dados, 200);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Jogo $jogo)
+    public function update(Request $request)
     {
         //
     }
@@ -58,7 +68,7 @@ class JogoController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Jogo $jogo)
+    public function destroy(Request $request)
     {
         //
     }
