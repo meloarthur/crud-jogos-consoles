@@ -12,7 +12,7 @@ class JogoController extends Controller
      */
     public function index()
     {
-        $dados = Jogo::all();
+        $dados = Jogo::orderBy('id_jogos')->get();
 
         return response()->json($dados, 200);
     }
@@ -101,9 +101,8 @@ class JogoController extends Controller
             if (!isset($jogo)) {
                 return response()->json(['erro' => 'Jogo solicitado não existe'], 404);
             }
-            dump('teste');
+            
             $jogo->delete();
-            dump('teste 2');
 
             return response()->json(['msg' => 'Jogo excluido com sucesso!'], 200);
 

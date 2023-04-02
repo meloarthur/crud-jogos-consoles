@@ -12,7 +12,7 @@ class JogoConsoleController extends Controller
      */
     public function index()
     {
-        $dados = JogoConsole::all();
+        $dados = JogoConsole::orderBy('id_jogos_consoles')->get();
 
         return response()->json($dados, 200);
     }
@@ -58,7 +58,27 @@ class JogoConsoleController extends Controller
      */
     public function update(Request $request)
     {
-        //
+        try {
+        
+            $jogoConsole = JogoConsole::find($request->id);
+
+            if (!isset($jogoConsole)) {
+                return response()->json(['erro' => 'Relação solicitada não existe'], 404);
+            }
+
+            $jogoConsole->update([
+                'id_jogos' => $request->id_jogos,
+                'id_consoles' => $request->id_consoles
+            ]);
+
+            return response()->json(['msg' => 'Relação atualizada com sucesso!'], 200);
+
+        } catch (\Throwable $th) {
+
+            report($th);
+            return response()->json(['erro' => 'Erro ao atualizar relação'], 400);
+
+        }
     }
 
     /**
@@ -66,6 +86,23 @@ class JogoConsoleController extends Controller
      */
     public function destroy(Request $request)
     {
-        //
+        try {
+        
+            $jogoConsole = JogoConsole::find($request->id);
+
+            if (!isset($jogoConsole)) {
+                return response()->json(['erro' => 'Relação solicitada não existe'], 404);
+            }
+
+            $jogoConsole->delete();
+
+            return response()->json(['msg' => 'Relação excluida com sucesso!'], 200);
+
+        } catch (\Throwable $th) {
+
+            report($th);
+            return response()->json(['erro' => 'Erro ao excluir relação'], 400);
+
+        }
     }
 }

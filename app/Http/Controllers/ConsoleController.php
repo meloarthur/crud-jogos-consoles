@@ -12,7 +12,7 @@ class ConsoleController extends Controller
      */
     public function index()
     {
-        $dados = Console::all();
+        $dados = Console::orderBy('id_consoles')->get();
 
         return response()->json($dados, 200);
     }
@@ -86,14 +86,6 @@ class ConsoleController extends Controller
      */
     public function destroy(Request $request)
     {
-        // $carro = $this->carro->find($id);
-
-        // if ($carro === null)
-        //     return response()->json(['erro' => 'Recurso solicitado não existe'], 404);
-
-        // $carro->delete();
-
-        // return response()->json(['msg' => 'Modelo removido com sucesso!'], 200);
         try {
         
             $console = Console::find($request->id);
