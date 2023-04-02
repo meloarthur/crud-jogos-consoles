@@ -14,7 +14,7 @@ class JogoController extends Controller
     {
         $dados = Jogo::orderBy('id_jogos')->get();
 
-        return response()->json($dados, 200);
+        return json_decode($dados);
     }
 
     /**

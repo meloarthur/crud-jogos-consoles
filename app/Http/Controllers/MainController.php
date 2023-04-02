@@ -11,7 +11,11 @@ class MainController extends Controller
     }
 
     public function jogos() {
-        return view('site.jogos');
+        $jogos = (new JogoController)->index();
+
+        return view('site.jogos',[
+            'jogos' => $jogos
+        ]);
     }
 
     public function consoles() {
