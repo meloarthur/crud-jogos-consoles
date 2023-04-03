@@ -3,6 +3,10 @@
     <head>
         <title>Sistema de Jogos - Jogos</title>
         <meta charset="utf-8">
+        {{-- <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"> --}}
+
+        <!-- Bootstrap CSS -->
+        {{-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous"> --}}
     </head>
 
     <body>
@@ -15,36 +19,35 @@
             </div>
 
             <div class="informacao-pagina">
-                <p>O Super Gestão é o sistema online de controle administrativo que pode transformar e potencializar os negócios da sua empresa.</p>
-                <p>Desenvolvido com a mais alta tecnologia para você cuidar do que é mais importante, seus negócios!</p>
+                <div class="table-responsive text-center">
+                    <table class="table table-hover" id="tabela">
+                        <thead>
+                            <tr>
+                                <th class="text-center">Nome</th>
+                                <th class="text-center">Descrição</th>
+                                <th class="text-center">Imagem Capa</th>
+                                <th class="text-center">Fabricante</th>
+                                <th class="text-center">Ano de Lançamento</th>
+                                <th class="text-center">Faturamento</th>
+                                <th class="text-center">Ação</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach ($jogos as $jogo)
+                            <tr>
+                                <td>{{ $jogo->nome }}</td>
+                                <td>{{ $jogo->descricao }}</td>
+                                <td>{{ $jogo->imagem_capa }}</td>
+                                <td>{{ $jogo->fabricante }}</td>
+                                <td>{{ $jogo->ano_lancamento }}</td>
+                                <td>R$ {{ number_format($jogo->faturamento, 2, ',', '.') }}</td>
+                                <td>editar / excluir</td>
+                            </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                </div>
             </div>
-        </div>
-
-        <div class="table-responsive text-center">
-            <table class="table table-hover" id="tabela">
-                <thead>
-                    <tr>
-                        <th class="text-center">Nome</th>
-                        <th class="text-center">Descrição</th>
-                        <th class="text-center">Imagem Capa</th>
-                        <th class="text-center">Fabricante</th>
-                        <th class="text-center">Ano de Lançamento</th>
-                        <th class="text-center">Faturamento</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach ($jogos as $jogo)
-                    <tr>
-                        <td>{{ $jogo->nome }}</td>
-                        <td>{{ $jogo->descricao }}</td>
-                        <td>{{ $jogo->imagem_capa }}</td>
-                        <td>{{ $jogo->fabricante }}</td>
-                        <td>{{ $jogo->ano_lancamento }}</td>
-                        <td>R$ {{ $jogo->faturamento }}</td>
-                    </tr>
-                    @endforeach
-                </tbody>
-            </table>
         </div>
 
         @component('layouts.footer')
@@ -78,18 +81,6 @@
             color: #333;
         }
 
-        .texto-branco {
-            color: #ffffff;
-        }
-
-        .borda-branca {
-            border: solid 1px #fff;
-        }
-
-        .borda-preta {
-            border: solid 1px #333;
-        }
-
         button {
             background-color: #7ab829;
             cursor: pointer;
@@ -113,56 +104,9 @@
             color: #333333;
         }
 
-        .logo {
-            width: 50px;
-            float: left;
-            margin-left: 40px;
-        }
-
-        .conteudo-destaque {
-            width: 100%;
-            height: 100%;
-            min-height: 800px;
-        }
-
-        .esquerda {
-            float:left;
-            background-color: #268fd0;
-            width: 60%;
-            height: 100%;
-        }
-
-        .direita {
-            float:right;
-            background-color: #2a9ee2;
-            width: 40%;
-            height: 100%;
-        }
-
-        .informacoes, .contato {
-            margin: 100px 40px 40px 40px;
-        }
-
-        .contato-principal {
-            margin: 0px 60px 60px 40px;
-        }
-
-        .chamada {
-            margin-top: 30px;
-            margin-left: 20px;
-        }
-
-        .video {
-            margin: 40px;
-        }
-
-        .video img {
-            max-width: 100%;
-            max-height: 100%;
-        }
-
         .conteudo-pagina {
             width: 100%;
+            height: 100%;
             text-align: center;
             margin-bottom: 50px;
         }
