@@ -25,12 +25,12 @@ class JogoController extends Controller
         try {
 
             Jogo::create([
-                'nome' => $request->nome,
-                'descricao' => $request->descricao,
-                'imagem_capa' => $request->imagem_capa,
-                'fabricante' => $request->fabricante,
-                'ano_lancamento' => $request->ano_lancamento,
-                'faturamento' => $request->faturamento
+                'nome' => $request->input('nome'),
+                'descricao' => $request->input('descricao'),
+                'imagem_capa' => $request->input('imagem-capa'),
+                'fabricante' => $request->input('fabricante'),
+                'ano_lancamento' => $request->input('ano-lancamento'),
+                'faturamento' => $request->input('faturamento')
             ]);
 
             return response()->json(['msg' => 'Jogo inserido com sucesso!'], 200);

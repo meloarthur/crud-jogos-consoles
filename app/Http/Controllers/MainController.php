@@ -18,6 +18,10 @@ class MainController extends Controller
         ]);
     }
 
+    public function cadastroJogos() {
+        return view('site.cadastroJogos');
+    }
+
     public function consoles() {
         return view('site.consoles');
     }

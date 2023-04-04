@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="pt-br">
     <head>
-        <title>Sistema de Jogos - Jogos</title>
+        <title>Sistema de Jogos - Cadastro de Jogos</title>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     </head>
@@ -12,44 +12,27 @@
 
         <div class="conteudo-pagina">
             <div class="titulo-pagina">
-                <h1>Jogos</h1>
+                <h1>Cadastro de Jogos</h1>
             </div>
-            
-            <a href="/jogos/cadastro" class="btn btn-primary add">
-                <button class="add" type="submit">Adicionar Jogo</button>
-            </a>
 
             <div class="informacao-pagina">
-                <div class="table-responsive text-center">
-                    <table class="table table-hover" id="tabela">
-                        <thead>
-                            <tr>
-                                <th class="text-center">Nome</th>
-                                <th class="text-center">Descrição</th>
-                                <th class="text-center">Imagem Capa</th>
-                                <th class="text-center">Fabricante</th>
-                                <th class="text-center">Ano de Lançamento</th>
-                                <th class="text-center">Faturamento</th>
-                                <th class="text-center">Ação</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach ($jogos as $jogo)
-                            <tr>
-                                <td>{{ $jogo->nome }}</td>
-                                <td>{{ $jogo->descricao }}</td>
-                                <td>{{ $jogo->imagem_capa }}</td>
-                                <td>{{ $jogo->fabricante }}</td>
-                                <td>{{ $jogo->ano_lancamento }}</td>
-                                <td>R$ {{ number_format($jogo->faturamento, 2, ',', '.') }}</td>
-                                <td class="table-buttons">
-                                    <button class="table-btn edit" type="submit"></button>
-                                    <button class="table-btn delete" type="submit"></button>
-                                </td>                
-                            </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
+                <div class="contato-principal">
+                    <form action="/api/jogos" method="POST">
+                        @csrf
+                        <input name="nome" type="text" placeholder="Nome *" class="borda-preta" required>
+                        <br>
+                        <input name="descricao" type="text" placeholder="Descrição *" class="borda-preta" required>
+                        <br>
+                        <input name="fabricante" type="text" placeholder="Fabricante *" class="borda-preta" required>
+                        <br>
+                        <input name="ano-lancamento" type="number" placeholder="Ano de Lançamento *" class="borda-preta" required>
+                        <br>
+                        <input name="faturamento" type="number" step="0.01" placeholder="Faturamento *" class="borda-preta" required>
+                        <br>
+                        <input name="imagem-capa" type="file" placeholder="Imagem de Capa *" class="borda-preta" required>
+                        <br>
+                        <button type="submit" class="borda-preta">ENVIAR</button>
+                    </form>
                 </div>
             </div>
         </div>
@@ -131,6 +114,10 @@
             color: #333;
         }
 
+        .borda-preta {
+            border: solid 1px #333;
+        }
+
         th {
             width: 25%;
             font-size: 18px;
@@ -169,8 +156,6 @@
             background-repeat: no-repeat;
             background-position: center;
             font-size: 16px;
-            text-decoration: none;
-            color: #fff
         }
 
         .add:hover {
@@ -200,4 +185,8 @@
         }
 
     </style>
+
+    <script>
+        
+    </script>
 </html>

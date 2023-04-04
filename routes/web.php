@@ -14,5 +14,12 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', [\App\Http\Controllers\MainController::class,'index'])->name('site.index');
-Route::get('/jogos', [\App\Http\Controllers\MainController::class,'jogos'])->name('site.jogos');
+
+Route::prefix('jogos')
+    ->group(function(){
+        Route::get('/', [\App\Http\Controllers\MainController::class,'jogos'])->name('site.jogos');
+
+        Route::get('/cadastro', [\App\Http\Controllers\MainController::class,'cadastroJogos'])->name('site.cadastroJogos');
+});
+
 Route::get('/consoles', [\App\Http\Controllers\MainController::class,'consoles'])->name('site.consoles');
