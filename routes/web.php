@@ -20,6 +20,7 @@ Route::prefix('jogos')
         Route::get('/', [\App\Http\Controllers\MainController::class,'jogos'])->name('site.jogos');
 
         Route::get('/cadastro', [\App\Http\Controllers\MainController::class,'cadastroJogos'])->name('site.cadastroJogos');
+        Route::post('/cadastro', [\App\Http\Controllers\JogoController::class,'store']);
 });
 
 Route::get('/consoles', [\App\Http\Controllers\MainController::class,'consoles'])->name('site.consoles');

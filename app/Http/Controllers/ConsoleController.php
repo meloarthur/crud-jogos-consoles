@@ -14,7 +14,7 @@ class ConsoleController extends Controller
     {
         $dados = Console::orderBy('id_consoles')->get();
 
-        return response()->json($dados, 200);
+        return json_decode($dados);
     }
 
     /**

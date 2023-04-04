@@ -17,22 +17,28 @@
 
             <div class="informacao-pagina">
                 <div class="contato-principal">
-                    <form action="/api/jogos" method="POST">
-                        @csrf
-                        <input name="nome" type="text" placeholder="Nome *" class="borda-preta" required>
-                        <br>
-                        <input name="descricao" type="text" placeholder="Descrição *" class="borda-preta" required>
-                        <br>
-                        <input name="fabricante" type="text" placeholder="Fabricante *" class="borda-preta" required>
-                        <br>
-                        <input name="ano-lancamento" type="number" placeholder="Ano de Lançamento *" class="borda-preta" required>
-                        <br>
-                        <input name="faturamento" type="number" step="0.01" placeholder="Faturamento *" class="borda-preta" required>
-                        <br>
-                        <input name="imagem-capa" type="file" placeholder="Imagem de Capa *" class="borda-preta" required>
-                        <br>
-                        <button type="submit" class="borda-preta">ENVIAR</button>
-                    </form>
+                <form action="/jogos/cadastro" method="POST">
+                    @csrf
+                    <input name="nome" type="text" placeholder="Nome *" class="borda-preta" required>
+                    <br>
+                    <input name="descricao" type="text" placeholder="Descrição *" class="borda-preta" required>
+                    <br>
+                    <input name="fabricante" type="text" placeholder="Fabricante *" class="borda-preta" required>
+                    <br>
+                    <input name="ano-lancamento" type="number" placeholder="Ano de Lançamento *" class="borda-preta" required>
+                    <br>
+                    <input name="faturamento" type="number" step="0.01" placeholder="Faturamento *" class="borda-preta" required>
+                    <br>
+                    <select class="borda-preta" required name="console">
+                        <option value="" selected>Consoles</option>
+                        @foreach ($consoles as $console)
+                        <option value="{{ $console->id_consoles }}">{{ $console->nome }}</option>
+                        @endforeach
+                    </select>
+                    <br>
+                    <input name="imagem-capa" type="file" placeholder="Imagem de Capa *" class="borda-preta" required>
+                    <button type="submit" class="borda-preta">ENVIAR</button>
+                </form>
                 </div>
             </div>
         </div>

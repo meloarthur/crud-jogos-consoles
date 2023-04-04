@@ -19,7 +19,11 @@ class MainController extends Controller
     }
 
     public function cadastroJogos() {
-        return view('site.cadastroJogos');
+        $consoles = (new ConsoleController)->index();
+        // dd($consoles);
+        return view('site.cadastroJogos',[
+            'consoles' => $consoles
+        ]);
     }
 
     public function consoles() {
