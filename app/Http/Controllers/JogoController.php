@@ -25,7 +25,7 @@ class JogoController extends Controller
     public function store(Request $request)
     {
         try {
-            // dd($request);
+
             Jogo::create([
                 'nome' => $request->input('nome'),
                 'descricao' => $request->input('descricao'),
@@ -39,7 +39,7 @@ class JogoController extends Controller
             $idConsole = (int)$request->console;
 
             $jogoConsole = new JogoConsoleController;
-            $jogoConsole->store($dadoInserido->id_jogos, $idConsole);
+            $jogoConsole->store($dadoInserido->id_jogos, $request->input('consoles'));
 
             return redirect()
                 ->route('site.jogos')

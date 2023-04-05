@@ -49,9 +49,6 @@
                                     <a href="/jogos/atualizar/{{ $jogo->id_jogos }}">
                                         <button class="table-btn edit" type="submit"></button>
                                     </a>
-                                    <!-- <a href="/jogos/excluir/{{ $jogo->id_jogos }}" onclick="excluirJogo({{ $jogo->id_jogos }}); return false;">
-                                        <button class="table-btn delete" type="button"></button>
-                                    </a> -->
                                     <form method="POST" action="/jogos/excluir/{{ $jogo->id_jogos }}">
                                         @csrf
                                         <button type="submit" class="table-btn delete"></button>

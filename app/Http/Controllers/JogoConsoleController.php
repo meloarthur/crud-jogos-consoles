@@ -21,14 +21,20 @@ class JogoConsoleController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(int $jogo, int $console)
+    public function store(int $jogo, array $consoles)
     {
         try {
-            
-            JogoConsole::create([
-                'id_jogos' => $jogo,
-                'id_consoles' => $console
-            ]);
+
+            foreach ($consoles as $console) {
+                $cont = 0;
+
+                JogoConsole::create([
+                    'id_jogos' => $jogo,
+                    'id_consoles' => (int)$console[$cont]
+                ]);
+
+                $cont++;
+            }
 
             return response()->json(['msg' => 'Relação inserida com sucesso!'], 200);
 

@@ -29,20 +29,20 @@
                     <br>
                     <input name="faturamento" type="number" step="0.01" placeholder="Faturamento *" class="borda-preta" required>
                     <br>
-                    <select class="borda-preta" required name="console">
-                        <option value="" selected>Consoles</option>
-                        @foreach ($consoles as $console)
-                        <option value="{{ $console->id_consoles }}">{{ $console->nome }}</option>
-                        @endforeach
-                    </select>
-                    <br>
                     <input name="imagem-capa" type="file" placeholder="Imagem de Capa *" class="borda-preta" required>
+                    <br>
+                    @foreach ($consoles as $console)
+                    <div class="consoles-checkbox">
+                        <input type="checkbox" name="consoles[]" value="{{ $console->id_consoles }}">
+                        <label>{{ $console->nome }}</label>
+                    </div>
+                    @endforeach
                     <button type="submit" class="borda-preta">ENVIAR</button>
                 </form>
                 </div>
             </div>
         </div>
-
+        
         @component('layouts.footer')
         @endcomponent
     </body>
@@ -95,6 +95,11 @@
 
         ::-ms-input-placeholder {
             color: #333333;
+        }
+
+        .consoles-checkbox {
+            display: inline-block;
+            margin-right: 10px;
         }
 
         .conteudo-pagina {
