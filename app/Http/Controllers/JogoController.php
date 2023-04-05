@@ -73,7 +73,7 @@ class JogoController extends Controller
     public function update(Request $request)
     {
         try {
-            // dd($request);
+            
             $jogo = Jogo::find($request->id);
 
             if (!isset($jogo)) {
@@ -107,7 +107,7 @@ class JogoController extends Controller
     public function destroy(Request $request)
     {
         try {
-        
+            
             $jogo = Jogo::find($request->id);
 
             if (!isset($jogo)) {
@@ -116,7 +116,9 @@ class JogoController extends Controller
             
             $jogo->delete();
 
-            return response()->json(['msg' => 'Jogo excluido com sucesso!'], 200);
+            return redirect()
+                ->route('site.jogos')
+                ->with('msg', 'Jogo excluido com sucesso');
 
         } catch (\Throwable $th) {
 

@@ -24,6 +24,8 @@ Route::prefix('jogos')
 
         Route::get('/atualizar/{id}', [\App\Http\Controllers\MainController::class,'atualizarJogos'])->name('site.atualizarJogos');
         Route::post('/atualizar/{id}', [\App\Http\Controllers\JogoController::class,'update']);
+
+        Route::post('/excluir/{id}', [\App\Http\Controllers\JogoController::class,'destroy']);
 });
 
 Route::get('/consoles', [\App\Http\Controllers\MainController::class,'consoles'])->name('site.consoles');
