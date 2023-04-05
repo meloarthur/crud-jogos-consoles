@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\JogoConsole;
 use Illuminate\Http\Request;
+use Ramsey\Uuid\Type\Integer;
 
 class JogoConsoleController extends Controller
 {
@@ -20,13 +21,13 @@ class JogoConsoleController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(int $jogo, int $console)
     {
         try {
-
+            
             JogoConsole::create([
-                'id_jogos' => $request->id_jogos,
-                'id_consoles' => $request->id_consoles
+                'id_jogos' => $jogo,
+                'id_consoles' => $console
             ]);
 
             return response()->json(['msg' => 'Relação inserida com sucesso!'], 200);

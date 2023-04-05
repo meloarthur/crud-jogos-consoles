@@ -26,6 +26,15 @@ class MainController extends Controller
         ]);
     }
 
+    public function atualizarJogos(Request $request) {
+        $dados = (new JogoController)->show($request->id);
+        $jogo = json_decode($dados->content());
+        
+        return view('site.atualizarJogos',[
+            'jogo' => $jogo
+        ]);
+    }
+
     public function consoles() {
         return view('site.consoles');
     }
