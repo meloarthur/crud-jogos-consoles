@@ -11,7 +11,28 @@ class MainController extends Controller
     }
 
     public function jogos() {
-        return view('site.jogos');
+        $jogos = (new JogoController)->index();
+
+        return view('site.jogos',[
+            'jogos' => $jogos
+        ]);
+    }
+
+    public function cadastroJogos() {
+        $consoles = (new ConsoleController)->index();
+        // dd($consoles);
+        return view('site.cadastroJogos',[
+            'consoles' => $consoles
+        ]);
+    }
+
+    public function atualizarJogos(Request $request) {
+        $dados = (new JogoController)->show($request->id);
+        $jogo = json_decode($dados->content());
+        
+        return view('site.atualizarJogos',[
+            'jogo' => $jogo
+        ]);
     }
 
     public function consoles() {
