@@ -1,70 +1,50 @@
 <!DOCTYPE html>
 <html lang="pt-br">
     <head>
-        <title>Sistema de Jogos - Jogos</title>
+        <title>Sistema de Jogos - Cadastro de Jogos</title>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     </head>
 
     <body>
-        <header>
-            @component('layouts.header')
-            @endcomponent
-        </header>
+        @component('layouts.header')
+        @endcomponent
 
         <div class="conteudo-pagina">
             <div class="titulo-pagina">
-                <h1>Jogos</h1>
+                <h1>Cadastro de Jogos</h1>
             </div>
-            
-            <a href="/jogos/cadastro" class="btn btn-primary add">
-                <button class="add" type="submit">Adicionar Jogo</button>
-            </a>
 
             <div class="informacao-pagina">
-                <div class="table-responsive text-center">
-                    <table class="table table-hover" id="tabela">
-                        <thead>
-                            <tr>
-                                <th class="text-center">Nome</th>
-                                <th class="text-center">Descrição</th>
-                                <th class="text-center">Imagem Capa</th>
-                                <th class="text-center">Fabricante</th>
-                                <th class="text-center">Ano de Lançamento</th>
-                                <th class="text-center">Faturamento</th>
-                                <th class="text-center">Ação</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {{-- @dd($jogos) --}}
-                            @foreach ($jogos as $jogo)
-                            <tr>
-                                <td>{{ $jogo->nome }}</td>
-                                <td>{{ $jogo->descricao }}</td>
-                                <td>{{ $jogo->imagem_capa }}</td>
-                                <td>{{ $jogo->fabricante }}</td>
-                                <td>{{ $jogo->ano_lancamento }}</td>
-                                <td>R$ {{ number_format($jogo->faturamento, 2, ',', '.') }}</td>
-                                <td class="table-buttons">
-                                    <a href="/jogos/atualizar/{{ $jogo->id_jogos }}">
-                                        <button class="table-btn edit" type="submit"></button>
-                                    </a>
-                                    <form method="POST" action="/jogos/excluir/{{ $jogo->id_jogos }}">
-                                        @csrf
-                                        <button type="submit" class="table-btn delete"></button>
-                                    </form>
-                                </td>                
-                            </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
+                <div class="contato-principal">
+                <form action="/jogos/cadastro" method="POST">
+                    @csrf
+                    <input name="nome" type="text" placeholder="Nome *" class="borda-preta" required>
+                    <br>
+                    <input name="descricao" type="text" placeholder="Descrição *" class="borda-preta" required>
+                    <br>
+                    <input name="fabricante" type="text" placeholder="Fabricante *" class="borda-preta" required>
+                    <br>
+                    <input name="ano-lancamento" type="number" placeholder="Ano de Lançamento *" class="borda-preta" required>
+                    <br>
+                    <input name="faturamento" type="number" step="0.01" placeholder="Faturamento *" class="borda-preta" required>
+                    <br>
+                    <input name="imagem-capa" type="file" placeholder="Imagem de Capa *" class="borda-preta" required>
+                    <br>
+                    @foreach ($consoles as $console)
+                    <div class="consoles-checkbox">
+                        <input type="checkbox" name="consoles[]" value="{{ $console->id_consoles }}">
+                        <label>{{ $console->nome }}</label>
+                    </div>
+                    @endforeach
+                    <button type="submit" class="borda-preta">ENVIAR</button>
+                </form>
                 </div>
             </div>
         </div>
-        <footer>
-            @component('layouts.footer')
-            @endcomponent
-        </footer>
+        
+        @component('layouts.footer')
+        @endcomponent
     </body>
 
     <style>
@@ -117,6 +97,11 @@
             color: #333333;
         }
 
+        .consoles-checkbox {
+            display: inline-block;
+            margin-right: 10px;
+        }
+
         .conteudo-pagina {
             width: 100%;
             height: 100%;
@@ -138,6 +123,10 @@
 
         .informacao-pagina p{
             color: #333;
+        }
+
+        .borda-preta {
+            border: solid 1px #333;
         }
 
         th {
@@ -178,8 +167,6 @@
             background-repeat: no-repeat;
             background-position: center;
             font-size: 16px;
-            text-decoration: none;
-            color: #fff
         }
 
         .add:hover {
@@ -209,4 +196,8 @@
         }
 
     </style>
+
+    <script>
+        
+    </script>
 </html>

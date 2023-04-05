@@ -13,6 +13,7 @@ class Jogo extends Model
     protected $primaryKey = 'id_jogos';
 
     protected $fillable = [
+        'id_jogos',
         'nome',
         'descricao',
         'imagem_capa',

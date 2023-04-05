@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Jogo;
 use Illuminate\Http\Request;
+use App\Http\Controllers\JogoConsoleController;
+use Ramsey\Uuid\Type\Integer;
 
 class JogoController extends Controller
 {
@@ -14,7 +16,7 @@ class JogoController extends Controller
     {
         $dados = Jogo::orderBy('id_jogos')->get();
 
-        return response()->json($dados, 200);
+        return json_decode($dados);
     }
 
     /**
@@ -25,15 +27,23 @@ class JogoController extends Controller
         try {
 
             Jogo::create([
-                'nome' => $request->nome,
-                'descricao' => $request->descricao,
-                'imagem_capa' => $request->imagem_capa,
-                'fabricante' => $request->fabricante,
-                'ano_lancamento' => $request->ano_lancamento,
-                'faturamento' => $request->faturamento
+                'nome' => $request->input('nome'),
+                'descricao' => $request->input('descricao'),
+                'imagem_capa' => $request->input('imagem-capa'),
+                'fabricante' => $request->input('fabricante'),
+                'ano_lancamento' => $request->input('ano-lancamento'),
+                'faturamento' => $request->input('faturamento')
             ]);
 
-            return response()->json(['msg' => 'Jogo inserido com sucesso!'], 200);
+            $dadoInserido = Jogo::latest('id_jogos')->first();
+            $idConsole = (int)$request->console;
+
+            $jogoConsole = new JogoConsoleController;
+            $jogoConsole->store($dadoInserido->id_jogos, $request->input('consoles'));
+
+            return redirect()
+                ->route('site.jogos')
+                ->with('msg', 'Jogo inserido com sucesso');
 
         } catch (\Throwable $th) {
 
@@ -46,9 +56,9 @@ class JogoController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Request $request)
+    public function show(int $id)
     {
-        $dados = Jogo::find($request->id);
+        $dados = Jogo::find($id);
 
         if (!isset($dados)) {
             return response()->json(['erro' => 'Jogo não encontrado'], 404);
@@ -63,7 +73,7 @@ class JogoController extends Controller
     public function update(Request $request)
     {
         try {
-        
+            
             $jogo = Jogo::find($request->id);
 
             if (!isset($jogo)) {
@@ -79,7 +89,9 @@ class JogoController extends Controller
                 'faturamento' => $request->faturamento
             ]);
 
-            return response()->json(['msg' => 'Jogo atualizado com sucesso!'], 200);
+            return redirect()
+                ->route('site.jogos')
+                ->with('msg', 'Jogo atualizado com sucesso');
 
         } catch (\Throwable $th) {
 
@@ -95,7 +107,7 @@ class JogoController extends Controller
     public function destroy(Request $request)
     {
         try {
-        
+            
             $jogo = Jogo::find($request->id);
 
             if (!isset($jogo)) {
@@ -104,7 +116,9 @@ class JogoController extends Controller
             
             $jogo->delete();
 
-            return response()->json(['msg' => 'Jogo excluido com sucesso!'], 200);
+            return redirect()
+                ->route('site.jogos')
+                ->with('msg', 'Jogo excluido com sucesso');
 
         } catch (\Throwable $th) {
 
