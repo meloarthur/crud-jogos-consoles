@@ -9,6 +9,31 @@ use Ramsey\Uuid\Type\Integer;
 
 class JogoController extends Controller
 {
+    public function viewJogos() {
+        $jogos = $this->index();
+
+        return view('site.jogos',[
+            'jogos' => $jogos
+        ]);
+    }
+
+    public function viewCadastroJogos() {
+        $consoles = (new ConsoleController)->index();
+        
+        return view('site.cadastroJogos',[
+            'consoles' => $consoles
+        ]);
+    }
+
+    public function viewAtualizarJogos(Request $request) {
+        $dados = $this->show($request->id);
+        $jogo = json_decode($dados->content());
+        
+        return view('site.atualizarJogos',[
+            'jogo' => $jogo
+        ]);
+    }
+
     /**
      * Display a listing of the resource.
      */

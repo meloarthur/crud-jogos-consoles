@@ -13,19 +13,32 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', [\App\Http\Controllers\MainController::class,'index'])->name('site.index');
+Route::get('/', [\App\Http\Controllers\HomeController::class,'index'])->name('site.index');
 
 Route::prefix('jogos')
     ->group(function(){
-        Route::get('/', [\App\Http\Controllers\MainController::class,'jogos'])->name('site.jogos');
+        Route::get('/', [\App\Http\Controllers\JogoController::class,'viewJogos'])->name('site.jogos');
 
-        Route::get('/cadastro', [\App\Http\Controllers\MainController::class,'cadastroJogos'])->name('site.cadastroJogos');
+        Route::get('/cadastro', [\App\Http\Controllers\JogoController::class,'viewCadastroJogos'])->name('site.cadastroJogos');
         Route::post('/cadastro', [\App\Http\Controllers\JogoController::class,'store']);
 
-        Route::get('/atualizar/{id}', [\App\Http\Controllers\MainController::class,'atualizarJogos'])->name('site.atualizarJogos');
+        Route::get('/atualizar/{id}', [\App\Http\Controllers\JogoController::class,'viewAtualizarJogos'])->name('site.atualizarJogos');
         Route::post('/atualizar/{id}', [\App\Http\Controllers\JogoController::class,'update']);
 
         Route::post('/excluir/{id}', [\App\Http\Controllers\JogoController::class,'destroy']);
-});
+    }
+);
 
-Route::get('/consoles', [\App\Http\Controllers\MainController::class,'consoles'])->name('site.consoles');
+Route::prefix('consoles')
+    ->group(function(){
+        Route::get('/', [\App\Http\Controllers\ConsoleController::class,'viewConsoles'])->name('site.consoles');
+        
+        Route::get('/cadastro', [\App\Http\Controllers\ConsoleController::class,'viewCadastroConsoles'])->name('site.cadastroConsoles');
+        Route::post('/cadastro', [\App\Http\Controllers\ConsoleController::class,'store']);
+
+        Route::get('/atualizar/{id}', [\App\Http\Controllers\ConsoleController::class,'viewAtualizarConsoles'])->name('site.atualizarConsoles');
+        Route::post('/atualizar/{id}', [\App\Http\Controllers\ConsoleController::class,'update']);
+
+        Route::post('/excluir/{id}', [\App\Http\Controllers\ConsoleController::class,'destroy']);
+    }
+);
