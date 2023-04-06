@@ -1,67 +1,36 @@
 <!DOCTYPE html>
 <html lang="pt-br">
     <head>
-        <title>Sistema de Jogos - Consoles</title>
+        <title>Sistema de Jogos - Atualizar Console</title>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     </head>
 
     <body>
-        <header>
-            @component('layouts.header')
-            @endcomponent
-        </header>
+        @component('layouts.header')
+        @endcomponent
 
         <div class="conteudo-pagina">
             <div class="titulo-pagina">
-                <h1>Consoles</h1>
+                <h1>Atualizar Console</h1>
             </div>
-            
-            <a href="/consoles/cadastro" class="btn btn-primary add">
-                <button class="add" type="submit">Adicionar Console</button>
-            </a>
 
             <div class="informacao-pagina">
-                <div class="table-responsive text-center">
-                    <div class="table-container">
-                        <table class="table table-hover" id="tabela">
-                            <thead>
-                                <tr>
-                                    <th class="text-center">Nome</th>
-                                    <th class="text-center">Fabricante</th>
-                                    <th class="text-center">Ação</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach ($consoles as $console)
-                                <tr>
-                                    <td>{{ $console->nome }}</td>
-                                    <td>{{ $console->fabricante }}</td>
-                                    <td class="table-buttons">
-                                        <div class="button-container">
-                                            <a href="/consoles/atualizar/{{ $console->id_consoles }}">
-                                                <button class="table-btn edit" type="submit"></button>
-                                            </a>
-                                        </div>
-                                        <div class="button-container">
-                                            <form method="POST" action="/consoles/excluir/{{ $console->id_consoles }}">
-                                                @csrf
-                                                <button type="submit" class="table-btn delete"></button>
-                                            </form>
-                                        </div>
-                                    </td>                      
-                                </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
-                    </div>
+                <div class="contato-principal">
+                <form action="/consoles/atualizar/{{ $console->id_consoles }}" method="POST">
+                    @csrf
+                    <input name="id" type="text" value="{{ $console->id_consoles }}" style="display: none">
+                    <input name="nome" type="text" placeholder="Nome *" class="borda-preta" value="{{ $console->nome }}" required>
+                    <br>
+                    <input name="fabricante" type="text" placeholder="Fabricante *" class="borda-preta" value="{{ $console->fabricante }}" required>
+                    <button type="submit" class="borda-preta">ENVIAR</button>
+                </form>
                 </div>
             </div>
         </div>
-        <footer>
-            @component('layouts.footer')
-            @endcomponent
-        </footer>
+
+        @component('layouts.footer')
+        @endcomponent
     </body>
 
     <style>
@@ -137,35 +106,34 @@
             color: #333;
         }
 
-        .table-container {
-            display: flex;
-            justify-content: center;
-        }
-        
-        /* Adicione essas propriedades CSS à tag da tabela */
-        #tabela {
-            width: 100%;
-            margin: 0 auto;
-        }
-
-        th, td {
-            width: 33.33%;
-            padding: 16px;
+        .borda-preta {
+            border: solid 1px #333;
         }
 
         th {
+            width: 25%;
             font-size: 18px;
             padding-right:20px;
+        }
+
+        th:first-child {
+            padding-left:20px;
+            padding-right:0;
         }
 
         td {
             padding-right:20px;
         }
 
-        .table-buttons, .button-container {
+        td:first-child {
+            padding-left:20px;
+            padding-right:0;
+        }
+
+        .table-buttons {
+            display: flex;
             gap: 0.5rem;
             padding: 0.5rem 0rem;
-            display: inline-block;
         }
 
         .table-btn {
@@ -180,8 +148,6 @@
             background-repeat: no-repeat;
             background-position: center;
             font-size: 16px;
-            text-decoration: none;
-            color: #fff
         }
 
         .add:hover {
@@ -211,4 +177,8 @@
         }
 
     </style>
+
+    <script>
+        
+    </script>
 </html>
