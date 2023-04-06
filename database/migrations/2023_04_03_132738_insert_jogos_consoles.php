@@ -21,8 +21,8 @@ return new class extends Migration
                 'id_consoles' => 2
             ],
             [
-                'id_jogos' => 1,
-                'id_consoles' => 3
+                'id_jogos' => 2,
+                'id_consoles' => 1
             ],
             [
                 'id_jogos' => 2,
@@ -30,6 +30,10 @@ return new class extends Migration
             ],
             [
                 'id_jogos' => 3,
+                'id_consoles' => 1
+            ],
+            [
+                'id_jogos' => 3,
                 'id_consoles' => 2
             ],
             [
@@ -38,11 +42,7 @@ return new class extends Migration
             ],
             [
                 'id_jogos' => 3,
-                'id_consoles' => 5
-            ],
-            [
-                'id_jogos' => 3,
-                'id_consoles' => 6
+                'id_consoles' => 4
             ],
         ]);
     }

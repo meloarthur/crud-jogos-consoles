@@ -13,20 +13,12 @@ return new class extends Migration
     {
         DB::table('consoles')->insert([
             [
-                'nome' => 'Playstation 3',
-                'fabricante' => 'Sony'
-            ],
-            [
                 'nome' => 'Playstation 4',
                 'fabricante' => 'Sony'
             ],
             [
                 'nome' => 'Playstation 5',
                 'fabricante' => 'Sony'
-            ],
-            [
-                'nome' => 'Xbox 360',
-                'fabricante' => 'Microsoft'
             ],
             [
                 'nome' => 'Xbox One',
