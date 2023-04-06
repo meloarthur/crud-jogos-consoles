@@ -7,6 +7,27 @@ use Illuminate\Http\Request;
 
 class ConsoleController extends Controller
 {
+    public function viewConsoles() {
+        $consoles = $this->index();
+
+        return view('site.consoles',[
+            'consoles' => $consoles
+        ]);
+    }
+
+    public function viewCadastroConsoles() {
+        return view('site.cadastroConsoles');
+    }
+
+    public function viewAtualizarConsoles(Request $request) {
+        $dados = $this->show($request->id);
+        $console = json_decode($dados->content());
+        
+        return view('site.atualizarConsoles',[
+            'console' => $console
+        ]);
+    }
+
     /**
      * Display a listing of the resource.
      */
@@ -29,7 +50,9 @@ class ConsoleController extends Controller
                 'fabricante' => $request->fabricante
             ]);
 
-            return response()->json(['msg' => 'Console inserido com sucesso!'], 200);
+            return redirect()
+                ->route('site.consoles')
+                ->with('msg', 'Console inserido com sucesso');
 
         } catch (\Throwable $th) {
 
@@ -42,12 +65,12 @@ class ConsoleController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Request $request)
+    public function show(int $id)
     {
-        $dados = Console::find($request->id);
+        $dados = Console::find($id);
 
         if (!isset($dados)) {
-            return response()->json(['msg' => 'Console não encontrado'], 404);
+            return response()->json(['erro' => 'Console não encontrado'], 404);
         }
 
         return response()->json($dados, 200);
@@ -71,7 +94,9 @@ class ConsoleController extends Controller
                 'fabricante' => $request->fabricante
             ]);
 
-            return response()->json(['msg' => 'Console atualizado com sucesso!'], 200);
+            return redirect()
+                ->route('site.consoles')
+                ->with('msg', 'Console atualizado com sucesso');
 
         } catch (\Throwable $th) {
 
@@ -96,7 +121,9 @@ class ConsoleController extends Controller
 
             $console->delete();
 
-            return response()->json(['msg' => 'Console excluido com sucesso!'], 200);
+            return redirect()
+                ->route('site.consoles')
+                ->with('msg', 'Console excluido com sucesso');
 
         } catch (\Throwable $th) {
 
