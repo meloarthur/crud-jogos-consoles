@@ -15,7 +15,7 @@ class JogoConsoleController extends Controller
     {
         $dados = JogoConsole::orderBy('id_jogos_consoles')->get();
 
-        return response()->json($dados, 200);
+        return json_decode($dados);
     }
 
     /**
@@ -27,10 +27,10 @@ class JogoConsoleController extends Controller
 
             foreach ($consoles as $console) {
                 $cont = 0;
-
+                
                 JogoConsole::create([
                     'id_jogos' => $jogo,
-                    'id_consoles' => (int)$console[$cont]
+                    'id_consoles' => $console[$cont]
                 ]);
 
                 $cont++;
@@ -111,5 +111,15 @@ class JogoConsoleController extends Controller
             return response()->json(['erro' => 'Erro ao excluir relação'], 400);
 
         }
+    }
+
+    public function buscarJogosConsoles() {
+        $jogosConsoles = JogoConsole::join('jogos', 'jogos.id_jogos', '=', 'jogos_consoles.id_jogos')
+            ->join('consoles', 'consoles.id_consoles', '=', 'jogos_consoles.id_consoles')
+            ->select('jogos.nome as jogo','consoles.nome as console')
+            ->orderBy('consoles.nome')
+            ->get();
+
+        return json_decode($jogosConsoles);
     }
 }

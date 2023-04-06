@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Models\Jogo;
 use Illuminate\Http\Request;
 use App\Http\Controllers\JogoConsoleController;
-use Ramsey\Uuid\Type\Integer;
 
 class JogoController extends Controller
 {

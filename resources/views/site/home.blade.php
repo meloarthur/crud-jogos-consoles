@@ -26,10 +26,26 @@
 
             <div class="direita">
                 <div class="contato">
-                    @component('layouts.formContato')
-                        <h1>Contato</h1>
-                        <p>Caso tenha qualquer dúvida por favor entre em contato com nossa equipe pelo formulário abaixo.<p>
-                    @endcomponent
+                    <h1>Jogos e Consoles</h1>
+                    <p>Tabela que mostra os jogos cadastrados e seus consoles disponíveis.<p>
+                    <div class="table-container">
+                        <table class="table table-hover" id="tabela">
+                            <thead>
+                                <tr>
+                                    <th class="text-center">Console</th>
+                                    <th class="text-center">Jogo</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach ($jogosConsoles as $jogoConsole)
+                                <tr>
+                                    <td>{{ $jogoConsole->console }}</td>
+                                    <td>{{ $jogoConsole->jogo }}</td>
+                                </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>
@@ -74,6 +90,31 @@
             border-radius: 3px;
             background-color: transparent;
             color: #333;
+        }
+
+        .table-container {
+            display: flex;
+            justify-content: center;
+        }
+
+        #tabela {
+            width: 100%;
+            margin: 0 auto;
+        }
+
+        th, td {
+            width: 50%;
+            padding: 8px;
+            text-align: center;
+        }
+
+        th {
+            font-size: 18px;
+            padding-right:20px;
+        }
+
+        td {
+            padding-right:20px;
         }
 
         .texto-branco {
